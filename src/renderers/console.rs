@@ -1,12 +1,18 @@
-use crate::universe::Universe;
 use crate::renderers::render::Render;
+use crate::universe::Universe;
 
 pub struct ConsoleRenderer();
 
 impl Render for ConsoleRenderer {
     fn render(&mut self, universe: &mut Universe) {
         let mut print_string = String::from("");
-        let get_display_string = |row: usize, col: usize| if universe.cells[row][col] { "■ " } else { "□ " };
+        let get_display_string = |row: usize, col: usize| {
+            if universe.cells[row][col] {
+                "■ "
+            } else {
+                "□ "
+            }
+        };
 
         print!("\x1B[2J"); // Clears the console
 
@@ -16,7 +22,7 @@ impl Render for ConsoleRenderer {
             }
             print_string += "\n";
         }
-        
+
         println!("{}", print_string);
     }
 }
